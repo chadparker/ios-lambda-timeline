@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreImage
+import CoreImage.CIFilterBuiltins
 import Photos
 
 class ImagePostViewController: UIViewController {
@@ -24,7 +25,15 @@ class ImagePostViewController: UIViewController {
     // MARK: - Properties
 
     var originalImage: UIImage?
-    var currentFilter: CIFilter?
+
+    enum Filter: String {
+        case none
+        case blur
+    }
+
+    var filters: [Filter: CIFilter] = [
+        .blur: .gaussianBlur()
+    ]
 
 
     // MARK: - UI State
@@ -32,7 +41,7 @@ class ImagePostViewController: UIViewController {
     enum UIState {
         case noPhoto
         case photoPicked(UIImage)
-        case selectFilter(CIFilter)
+        case selectFilter(Filter)
     }
 
     var state: UIState = .noPhoto {
@@ -46,7 +55,6 @@ class ImagePostViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         selectImageButton.layer.cornerRadius = 16
         blurButton.layer.cornerRadius = 8
         blurButton.layer.borderWidth = 0.5
@@ -66,7 +74,12 @@ class ImagePostViewController: UIViewController {
             imageView.isHidden = false
             filterStack.isHidden = false
         case .selectFilter(let filter):
-            print(filter)
+            switch filter {
+            case .none:
+                break
+            case .blur:
+                let blur = filters[filter]
+            }
         }
     }
 
@@ -86,8 +99,15 @@ class ImagePostViewController: UIViewController {
         present(imagePicker, animated: true, completion: nil)
     }
 
-    @IBAction func blur(_ sender: Any) {
-
+    @IBAction func blur(_ sender: UIButton) {
+        blurButton.isSelected.toggle()
+        if blurButton.isSelected {
+            state = .selectFilter(.blur)
+            blurButton.backgroundColor = .systemBlue
+        } else {
+            state = .selectFilter(.none)
+            blurButton.backgroundColor = .clear
+        }
     }
 }
 

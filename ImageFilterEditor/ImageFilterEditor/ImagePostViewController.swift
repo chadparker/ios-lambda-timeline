@@ -18,6 +18,7 @@ class ImagePostViewController: UIViewController {
     @IBOutlet weak var selectImageButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var blurButton: UIButton!
+    @IBOutlet weak var filterStack: UIStackView!
 
 
     // MARK: - Properties
@@ -55,10 +56,12 @@ class ImagePostViewController: UIViewController {
         switch state {
         case .noPhoto:
             selectImageButtonContainer.isHidden = false
+            filterStack.isHidden = true
         case .photoPicked(let image):
             originalImage = image
             imageView.image = image
             selectImageButtonContainer.isHidden = true
+            filterStack.isHidden = false
         case .selectFilter(let filter):
             print(filter)
         }

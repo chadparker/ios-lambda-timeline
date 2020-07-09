@@ -86,6 +86,7 @@
                     <navigationItem key="navigationItem" id="FY2-Hd-dhV"/>
                     <connections>
                         <outlet property="blurButton" destination="ETg-b6-1bw" id="s9w-Ti-bcf"/>
+                        <outlet property="filterStack" destination="xUR-t7-lDd" id="crZ-fA-Txf"/>
                         <outlet property="imageView" destination="Aus-1q-SeP" id="ub9-jc-gbe"/>
                         <outlet property="selectImageButton" destination="3dS-Xq-A1B" id="3ja-Ya-RJ5"/>
                         <outlet property="selectImageButtonContainer" destination="15J-Oo-n7n" id="kOD-rt-MVl"/>

@@ -9,23 +9,23 @@
 /* Begin PBXBuildFile section */
 		6395741C24B6B07F0040E30E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6395741B24B6B07F0040E30E /* AppDelegate.swift */; };
 		6395741E24B6B07F0040E30E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6395741D24B6B07F0040E30E /* SceneDelegate.swift */; };
-		6395742024B6B07F0040E30E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6395741F24B6B07F0040E30E /* ViewController.swift */; };
 		6395742324B6B07F0040E30E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6395742124B6B07F0040E30E /* Main.storyboard */; };
 		6395742524B6B0800040E30E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6395742424B6B0800040E30E /* Assets.xcassets */; };
 		6395742824B6B0800040E30E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6395742624B6B0800040E30E /* LaunchScreen.storyboard */; };
 		6395743024B6B3670040E30E /* UIImage+Scaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6395742F24B6B3670040E30E /* UIImage+Scaling.swift */; };
+		6395743224B6B5190040E30E /* ImagePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6395743124B6B5190040E30E /* ImagePostViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6395741824B6B07F0040E30E /* ImageFilterEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFilterEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6395741B24B6B07F0040E30E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6395741D24B6B07F0040E30E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		6395741F24B6B07F0040E30E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6395742224B6B07F0040E30E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6395742424B6B0800040E30E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6395742724B6B0800040E30E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6395742924B6B0800040E30E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6395742F24B6B3670040E30E /* UIImage+Scaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Scaling.swift"; sourceTree = "<group>"; };
+		6395743124B6B5190040E30E /* ImagePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePostViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +60,7 @@
 			children = (
 				6395741B24B6B07F0040E30E /* AppDelegate.swift */,
 				6395741D24B6B07F0040E30E /* SceneDelegate.swift */,
-				6395741F24B6B07F0040E30E /* ViewController.swift */,
+				6395743124B6B5190040E30E /* ImagePostViewController.swift */,
 				6395742F24B6B3670040E30E /* UIImage+Scaling.swift */,
 				6395742124B6B07F0040E30E /* Main.storyboard */,
 				6395742424B6B0800040E30E /* Assets.xcassets */,
@@ -141,8 +141,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6395742024B6B07F0040E30E /* ViewController.swift in Sources */,
 				6395743024B6B3670040E30E /* UIImage+Scaling.swift in Sources */,
+				6395743224B6B5190040E30E /* ImagePostViewController.swift in Sources */,
 				6395741C24B6B07F0040E30E /* AppDelegate.swift in Sources */,
 				6395741E24B6B07F0040E30E /* SceneDelegate.swift in Sources */,
 			);

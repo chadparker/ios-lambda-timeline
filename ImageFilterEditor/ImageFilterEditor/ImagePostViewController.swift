@@ -42,7 +42,7 @@ class ImagePostViewController: UIViewController {
     }
 
 
-    // MARK: - UI Updates
+    // MARK: - UI Update
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,17 +50,20 @@ class ImagePostViewController: UIViewController {
         selectImageButton.layer.cornerRadius = 16
         blurButton.layer.cornerRadius = 8
         blurButton.layer.borderWidth = 0.5
+        updateUI()
     }
 
     private func updateUI() {
         switch state {
         case .noPhoto:
             selectImageButtonContainer.isHidden = false
+            imageView.isHidden = true
             filterStack.isHidden = true
         case .photoPicked(let image):
             originalImage = image
             imageView.image = image
             selectImageButtonContainer.isHidden = true
+            imageView.isHidden = false
             filterStack.isHidden = false
         case .selectFilter(let filter):
             print(filter)

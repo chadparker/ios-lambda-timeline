@@ -15,11 +15,12 @@ class ImagePostViewController: UIViewController {
 
     // MARK: - Outlets
 
-    @IBOutlet weak var selectImageButtonContainer: UIView!
+    @IBOutlet weak var stackSelectImage: UIView!
+    @IBOutlet weak var stackImageFilter: UIStackView!
+    
     @IBOutlet weak var selectImageButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var blurButton: UIButton!
-    @IBOutlet weak var filterStack: UIStackView!
 
 
     // MARK: - Properties
@@ -64,15 +65,13 @@ class ImagePostViewController: UIViewController {
     private func updateUI() {
         switch state {
         case .noPhoto:
-            selectImageButtonContainer.isHidden = false
-            imageView.isHidden = true
-            filterStack.isHidden = true
+            stackSelectImage.isHidden = false
+            stackImageFilter.isHidden = true
         case .photoPicked(let image):
             originalImage = image
             imageView.image = image
-            selectImageButtonContainer.isHidden = true
-            imageView.isHidden = false
-            filterStack.isHidden = false
+            stackSelectImage.isHidden = true
+            stackImageFilter.isHidden = false
         case .selectFilter(let filter):
             switch filter {
             case .none:

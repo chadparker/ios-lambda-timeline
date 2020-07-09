@@ -43,26 +43,31 @@
                                             <constraint firstAttribute="height" secondItem="3dS-Xq-A1B" secondAttribute="height" multiplier="3" id="co4-qX-QHx"/>
                                         </constraints>
                                     </view>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Aus-1q-SeP">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="280.5"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="Aus-1q-SeP" secondAttribute="height" multiplier="4:3" id="FNd-Pg-zZc"/>
-                                        </constraints>
-                                    </imageView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xUR-t7-lDd">
-                                        <rect key="frame" x="0.0" y="300.5" width="374" height="40"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="iO2-fK-Q8b">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="340.5"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ETg-b6-1bw">
-                                                <rect key="frame" x="0.0" y="0.0" width="374" height="40"/>
-                                                <state key="normal" title="Blur"/>
-                                                <connections>
-                                                    <action selector="blur:" destination="JRT-EB-EPd" eventType="touchUpInside" id="bzy-LH-GOx"/>
-                                                </connections>
-                                            </button>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Aus-1q-SeP">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="280.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="Aus-1q-SeP" secondAttribute="height" multiplier="4:3" id="FNd-Pg-zZc"/>
+                                                </constraints>
+                                            </imageView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xUR-t7-lDd">
+                                                <rect key="frame" x="0.0" y="300.5" width="374" height="40"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ETg-b6-1bw">
+                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="40"/>
+                                                        <state key="normal" title="Blur"/>
+                                                        <connections>
+                                                            <action selector="blur:" destination="JRT-EB-EPd" eventType="touchUpInside" id="bzy-LH-GOx"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="bul-hh-sq8"/>
+                                                </constraints>
+                                            </stackView>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="bul-hh-sq8"/>
-                                        </constraints>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gpO-E1-ZzR" userLabel="Spacer">
                                         <rect key="frame" x="0.0" y="360.5" width="374" height="373.5"/>
@@ -86,10 +91,10 @@
                     <navigationItem key="navigationItem" id="FY2-Hd-dhV"/>
                     <connections>
                         <outlet property="blurButton" destination="ETg-b6-1bw" id="s9w-Ti-bcf"/>
-                        <outlet property="filterStack" destination="xUR-t7-lDd" id="crZ-fA-Txf"/>
                         <outlet property="imageView" destination="Aus-1q-SeP" id="ub9-jc-gbe"/>
                         <outlet property="selectImageButton" destination="3dS-Xq-A1B" id="3ja-Ya-RJ5"/>
-                        <outlet property="selectImageButtonContainer" destination="15J-Oo-n7n" id="kOD-rt-MVl"/>
+                        <outlet property="stackImageFilter" destination="iO2-fK-Q8b" id="1xt-0N-C34"/>
+                        <outlet property="stackSelectImage" destination="15J-Oo-n7n" id="kOD-rt-MVl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gVB-5B-IU3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -27,6 +27,8 @@ class ImagePostViewController: UIViewController {
     // MARK: - Properties
 
     var originalImage: UIImage?
+    private var scaledImage: UIImage?
+    private let context = CIContext()
 
     enum Filter: String {
         case none
@@ -65,21 +67,32 @@ class ImagePostViewController: UIViewController {
 
     private func updateUI() {
         switch state {
+
         case .noPhoto:
+            originalImage = nil
+            scaledImage = nil
+            imageView.image = nil
+
             stackSelectImage.isHidden = false
             stackImageFilter.isHidden = true
+
         case .photoPicked(let image):
             originalImage = image
+            scaledImage = scale(image: image, to: imageView.bounds.size)
             imageView.image = image
+
             stackSelectImage.isHidden = true
             stackImageFilter.isHidden = false
+
         case .selectFilter(let filter):
             switch filter {
             case .none:
                 slider1.isHidden = true
             case .blur:
                 slider1.isHidden = false
+                
                 let blur = filters[filter]
+                
             }
         }
     }
@@ -113,6 +126,15 @@ class ImagePostViewController: UIViewController {
     
     @IBAction func slider1changed(_ sender: Any) {
         
+    }
+    
+    
+    // MARK: - Image Processing
+    
+    private func scale(image: UIImage, to size: CGSize) -> UIImage {
+        let screenScale = UIScreen.main.scale
+        let sizeInPixels = CGSize(width: size.width * screenScale, height: size.height * screenScale)
+        return image.imageByScaling(toSize: sizeInPixels)
     }
 }
 

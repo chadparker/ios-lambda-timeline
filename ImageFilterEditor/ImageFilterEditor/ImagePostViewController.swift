@@ -21,6 +21,7 @@ class ImagePostViewController: UIViewController {
     @IBOutlet weak var selectImageButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var blurButton: UIButton!
+    @IBOutlet private var slider1: UISlider!
 
 
     // MARK: - Properties
@@ -75,8 +76,9 @@ class ImagePostViewController: UIViewController {
         case .selectFilter(let filter):
             switch filter {
             case .none:
-                break
+                slider1.isHidden = true
             case .blur:
+                slider1.isHidden = false
                 let blur = filters[filter]
             }
         }
@@ -107,6 +109,10 @@ class ImagePostViewController: UIViewController {
             state = .selectFilter(.none)
             blurButton.backgroundColor = .clear
         }
+    }
+    
+    @IBAction func slider1changed(_ sender: Any) {
+        
     }
 }
 

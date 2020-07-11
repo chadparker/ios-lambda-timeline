@@ -13,6 +13,18 @@ import Photos
 
 class ImagePostViewController: UIViewController {
 
+    // MARK: - Enums
+
+    private enum Filter {
+        case none, blur
+    }
+
+    private enum State {
+        case noPhoto
+        case photoPicked(UIImage)
+        case selectFilter(Filter)
+    }
+
     // MARK: - Outlets
 
     @IBOutlet private var stackSelectImage: UIView!
@@ -30,18 +42,8 @@ class ImagePostViewController: UIViewController {
     private var scaledImage: CIImage?
     private let context = CIContext()
 
-    private enum Filter {
-        case none, blur
-    }
-    private var filters: [Filter: CIFilter] = [
-        .blur: .gaussianBlur()
-    ]
+    private let blurFilter = CIFilter.gaussianBlur()
 
-    private enum State {
-        case noPhoto
-        case photoPicked(UIImage)
-        case selectFilter(Filter)
-    }
     private var state: State = .noPhoto {
         didSet {
             stateChanged()

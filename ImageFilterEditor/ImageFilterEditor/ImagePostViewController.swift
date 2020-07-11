@@ -27,7 +27,7 @@ class ImagePostViewController: UIViewController {
     // MARK: - Properties
 
     private var originalImage: UIImage?
-    private var scaledImage: UIImage?
+    private var scaledImage: CIImage?
     private let context = CIContext()
 
     private enum Filter {
@@ -72,10 +72,10 @@ class ImagePostViewController: UIViewController {
             stackSelectImage.isHidden = false
             stackImageFilter.isHidden = true
 
-        case .photoPicked(let image):
-            originalImage = image
-            scaledImage = scale(image: image, to: imageView.bounds.size)
-            imageView.image = image
+        case .photoPicked(let chosenImage):
+            originalImage = chosenImage
+            scaledImage = CIImage(image: scale(image: chosenImage, to: imageView.bounds.size))
+            imageView.image = chosenImage
 
             stackSelectImage.isHidden = true
             stackImageFilter.isHidden = false
@@ -90,7 +90,24 @@ class ImagePostViewController: UIViewController {
                 let blur = filters[filter]
                 
             }
-        }
+    }
+
+    private func image(byFiltering inputImage: CIImage) -> UIImage? {
+
+//        colorControlsFilter.inputImage = inputImage
+//        colorControlsFilter.saturation = saturationSlider.value
+//        colorControlsFilter.brightness = brightnessSlider.value
+//        colorControlsFilter.contrast = contrastSlider.value
+
+//        blurFilter.inputImage = colorControlsFilter.outputImage?.clampedToExtent()
+        blurFilter.inputImage = inputImage.clampedToExtent()
+        blurFilter.radius = blurSlider.value
+
+        // CIImage is a recipe
+
+        guard let outputImage = blurFilter.outputImage else { return nil }
+        guard let renderedCGImage = context.createCGImage(outputImage, from: inputImage.extent) else { return nil }
+        return UIImage(cgImage: renderedCGImage)
     }
 
 

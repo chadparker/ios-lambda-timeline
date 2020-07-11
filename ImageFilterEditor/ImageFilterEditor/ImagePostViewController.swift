@@ -21,7 +21,7 @@ class ImagePostViewController: UIViewController {
     @IBOutlet private var selectImageButton: UIButton!
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var blurButton: UIButton!
-    @IBOutlet private var slider1: UISlider!
+    @IBOutlet private var blurSlider: UISlider!
     
 
     // MARK: - Properties
@@ -83,9 +83,9 @@ class ImagePostViewController: UIViewController {
         case .selectFilter(let filter):
             switch filter {
             case .none:
-                slider1.isHidden = true
+                blurSlider.isHidden = true
             case .blur:
-                slider1.isHidden = false
+                blurSlider.isHidden = false
                 
                 let blur = filters[filter]
                 

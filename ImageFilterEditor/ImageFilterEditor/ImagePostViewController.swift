@@ -15,42 +15,41 @@ class ImagePostViewController: UIViewController {
 
     // MARK: - Outlets
 
-    @IBOutlet weak var stackSelectImage: UIView!
-    @IBOutlet weak var stackImageFilter: UIStackView!
-    
-    @IBOutlet weak var selectImageButton: UIButton!
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var blurButton: UIButton!
-    @IBOutlet private var slider1: UISlider!
+    @IBOutlet private var stackSelectImage: UIView!
+    @IBOutlet private var stackImageFilter: UIStackView!
 
+    @IBOutlet private var selectImageButton: UIButton!
+    @IBOutlet private var imageView: UIImageView!
+    @IBOutlet private var blurButton: UIButton!
+    @IBOutlet private var slider1: UISlider!
+    
 
     // MARK: - Properties
 
-    var originalImage: UIImage?
+    private var originalImage: UIImage?
     private var scaledImage: UIImage?
     private let context = CIContext()
 
-    enum Filter: String {
-        case none
-        case blur
+    private enum Filter {
+        case none, blur
     }
 
-    var filters: [Filter: CIFilter] = [
+    private var filters: [Filter: CIFilter] = [
         .blur: .gaussianBlur()
     ]
 
 
-    // MARK: - UI State
+    // MARK: - State
 
-    enum UIState {
+    private enum State {
         case noPhoto
         case photoPicked(UIImage)
         case selectFilter(Filter)
     }
 
-    var state: UIState = .noPhoto {
+    private var state: State = .noPhoto {
         didSet {
-            updateUI()
+            update()
         }
     }
 

@@ -33,38 +33,35 @@ class ImagePostViewController: UIViewController {
     private enum Filter {
         case none, blur
     }
-
     private var filters: [Filter: CIFilter] = [
         .blur: .gaussianBlur()
     ]
-
-
-    // MARK: - State
 
     private enum State {
         case noPhoto
         case photoPicked(UIImage)
         case selectFilter(Filter)
     }
-
     private var state: State = .noPhoto {
         didSet {
-            update()
+            stateChanged()
         }
     }
 
 
-    // MARK: - UI Update
+    // MARK: - View Setup
 
     override func viewDidLoad() {
         super.viewDidLoad()
         selectImageButton.layer.cornerRadius = 16
         blurButton.layer.cornerRadius = 8
         blurButton.layer.borderWidth = 0.5
-        updateUI()
+        stateChanged()
     }
 
-    private func updateUI() {
+    // MARK: - State Changes
+
+    private func stateChanged() {
         switch state {
 
         case .noPhoto:

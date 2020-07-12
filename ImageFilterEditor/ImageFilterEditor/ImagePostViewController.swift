@@ -16,7 +16,7 @@ class ImagePostViewController: UIViewController {
     // MARK: - Enums
 
     private enum Filter {
-        case none, blur
+        case none, blur, colorControls
     }
 
     private enum State {
@@ -27,12 +27,20 @@ class ImagePostViewController: UIViewController {
 
     // MARK: - Outlets
 
-    @IBOutlet private var stackSelectImage: UIView!
-    @IBOutlet private var stackImageFilter: UIStackView!
-
+    @IBOutlet private var selectImageContainer: UIView!
     @IBOutlet private var selectImageButton: UIButton!
+
+    @IBOutlet private var imageAndFilterStack: UIStackView!
     @IBOutlet private var imageView: UIImageView!
+
+    @IBOutlet private var colorControlsButton: UIButton!
     @IBOutlet private var blurButton: UIButton!
+
+    @IBOutlet private var colorControlsStack: UIStackView!
+    @IBOutlet private var brightnessSlider: UISlider!
+    @IBOutlet private var contrastSlider: UISlider!
+    @IBOutlet private var saturationSlider: UISlider!
+
     @IBOutlet private var blurSlider: UISlider!
     
 
@@ -42,6 +50,7 @@ class ImagePostViewController: UIViewController {
     private var scaledImage: CIImage?
     private let context = CIContext()
 
+    private let colorControlsFilter = CIFilter.colorControls()
     private let blurFilter = CIFilter.gaussianBlur()
 
     private var state: State = .noPhoto {
@@ -51,15 +60,30 @@ class ImagePostViewController: UIViewController {
     }
 
 
-    // MARK: - View Setup
+    // MARK: - View Functions
 
     override func viewDidLoad() {
         super.viewDidLoad()
         selectImageButton.layer.cornerRadius = 16
-        blurButton.layer.cornerRadius = 8
-        blurButton.layer.borderWidth = 0.5
         stateChanged()
     }
+
+    private func deselectAllFilterButtons() {
+        colorControlsButton.isSelected = false
+        blurButton.isSelected = false
+    }
+
+    private func hideAllFilterSliders() {
+        colorControlsStack.isHidden = true
+        blurSlider.isHidden = true
+    }
+
+    private func updateImage() {
+        guard let scaledImage = scaledImage else { return }
+
+        imageView.image = image(byFiltering: scaledImage)
+    }
+
 
     // MARK: - State Changes
 
@@ -71,51 +95,38 @@ class ImagePostViewController: UIViewController {
             scaledImage = nil
             imageView.image = nil
 
-            stackSelectImage.isHidden = false
-            stackImageFilter.isHidden = true
+            imageAndFilterStack.isHidden = true
 
         case .photoPicked(let chosenImage):
             originalImage = chosenImage
             scaledImage = CIImage(image: scale(image: chosenImage, to: imageView.bounds.size))
-            imageView.image = chosenImage
+            imageView.image = UIImage(ciImage: scaledImage!)
 
-            stackSelectImage.isHidden = true
-            stackImageFilter.isHidden = false
+            imageAndFilterStack.isHidden = false
 
-        case .selectFilter(let filter):
-            switch filter {
+        case .selectFilter(let chosenFilter):
+            switch chosenFilter {
             case .none:
-                blurSlider.isHidden = true
+                deselectAllFilterButtons()
+                hideAllFilterSliders()
+            case .colorControls:
+                deselectAllFilterButtons()
+                hideAllFilterSliders()
+                colorControlsButton.isSelected = true
+                colorControlsStack.isHidden = false
             case .blur:
+                deselectAllFilterButtons()
+                hideAllFilterSliders()
+                blurButton.isSelected = true
                 blurSlider.isHidden = false
-                
-                let blur = filters[filter]
-                
             }
-    }
-
-    private func image(byFiltering inputImage: CIImage) -> UIImage? {
-
-//        colorControlsFilter.inputImage = inputImage
-//        colorControlsFilter.saturation = saturationSlider.value
-//        colorControlsFilter.brightness = brightnessSlider.value
-//        colorControlsFilter.contrast = contrastSlider.value
-
-//        blurFilter.inputImage = colorControlsFilter.outputImage?.clampedToExtent()
-        blurFilter.inputImage = inputImage.clampedToExtent()
-        blurFilter.radius = blurSlider.value
-
-        // CIImage is a recipe
-
-        guard let outputImage = blurFilter.outputImage else { return nil }
-        guard let renderedCGImage = context.createCGImage(outputImage, from: inputImage.extent) else { return nil }
-        return UIImage(cgImage: renderedCGImage)
+        }
     }
 
 
     // MARK: - Actions
 
-    @IBAction func selectImage(_ sender: Any) {
+    @IBAction func selectImageTapped(_ sender: Any) {
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
             print("The photo library is not available.")
             return
@@ -128,19 +139,18 @@ class ImagePostViewController: UIViewController {
         present(imagePicker, animated: true, completion: nil)
     }
 
-    @IBAction func blur(_ sender: UIButton) {
-        blurButton.isSelected.toggle()
-        if blurButton.isSelected {
-            state = .selectFilter(.blur)
-            blurButton.backgroundColor = .systemBlue
-        } else {
-            state = .selectFilter(.none)
-            blurButton.backgroundColor = .clear
-        }
+    @IBAction func colorControlsSelected(_ sender: Any) {
+        colorControlsButton.isSelected = true
+        state = .selectFilter(.colorControls)
+    }
+
+    @IBAction func blurSelected(_ sender: UIButton) {
+        blurButton.isSelected = true
+        state = .selectFilter(.blur)
     }
     
-    @IBAction func slider1changed(_ sender: Any) {
-        
+    @IBAction func sliderValueChanged(_ sender: Any) {
+        updateImage()
     }
     
     
@@ -150,6 +160,21 @@ class ImagePostViewController: UIViewController {
         let screenScale = UIScreen.main.scale
         let sizeInPixels = CGSize(width: size.width * screenScale, height: size.height * screenScale)
         return image.imageByScaling(toSize: sizeInPixels)
+    }
+
+    private func image(byFiltering inputImage: CIImage) -> UIImage? {
+        
+        colorControlsFilter.inputImage = inputImage
+        colorControlsFilter.saturation = saturationSlider.value
+        colorControlsFilter.brightness = brightnessSlider.value
+        colorControlsFilter.contrast = contrastSlider.value
+        
+        blurFilter.inputImage = colorControlsFilter.outputImage?.clampedToExtent()
+        blurFilter.radius = blurSlider.value
+        
+        guard let outputImage = blurFilter.outputImage else { return nil }
+        guard let renderedCGImage = context.createCGImage(outputImage, from: inputImage.extent) else { return nil }
+        return UIImage(cgImage: renderedCGImage)
     }
 }
 

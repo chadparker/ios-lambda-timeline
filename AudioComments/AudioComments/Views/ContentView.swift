@@ -10,13 +10,14 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var dataSource: AudioDataSource
+    @State var showingNewModal: Bool = false
     
     var body: some View {
         NavigationView {
             ZStack {
                 VStack {
                     Button(action: {
-
+                        self.showingNewModal = true
                     }, label: {
                         Text("New")
                             .foregroundColor(.white)
@@ -25,19 +26,46 @@ struct ContentView: View {
                     })
                     List {
                         ForEach(dataSource.audioComments) { audioComment in
-                            Text(audioComment.title)
+                            NavigationLink(destination: RecordingView(title: audioComment.title)) {
+                                Text(audioComment.title)
+                            }
+                        }
+                        HStack {
+                            Spacer()
+                            Text("\(dataSource.audioComments.count) audio comments")
+                                .foregroundColor(.secondary)
+                            Spacer()
                         }
                     }
                 }
-                RoundedRectangle(cornerRadius: 30, style: .continuous)
-                    .foregroundColor(.yellow)
-                    .frame(width: 300, height: 320, alignment: .center)
-                    .overlay(VStack {
-                        Text("hey")
-                    })
+                if showingNewModal {
+                    ZStack {
+                        Color.black.opacity(0.6)
+                            .edgesIgnoringSafeArea(.all)
+                            .onTapGesture {
+                                self.showingNewModal = false
+                        }
+                        VStack {
+                            Text("hey")
+                                .padding().padding().padding()
+                        }
+                        .background(
+                            RoundedRectangle(cornerRadius: 30, style: .continuous)
+                                .foregroundColor(.yellow)
+                        )
+                    }
+                }
             }
             .navigationBarTitle("Audio Comments")
         }
+    }
+}
+
+struct RecordingView: View {
+    var title: String
+    
+    var body: some View {
+        Text(title)
     }
 }
 
@@ -45,7 +73,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(
             dataSource:
-                AudioDataSource(withSampleData: true)
+            AudioDataSource(withSampleData: true)
         )
     }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var dataSource: AudioDataSource
-    @State var showingNewModal: Bool = false
+    @State var showingNewModal: Bool = true
     
     var body: some View {
         NavigationView {
@@ -26,7 +26,7 @@ struct ContentView: View {
                     })
                     List {
                         ForEach(dataSource.audioComments) { audioComment in
-                            NavigationLink(destination: RecordingView(title: audioComment.title)) {
+                            NavigationLink(destination: ExistingRecordingView(title: audioComment.title)) {
                                 Text(audioComment.title)
                             }
                         }
@@ -45,14 +45,7 @@ struct ContentView: View {
                             .onTapGesture {
                                 self.showingNewModal = false
                         }
-                        VStack {
-                            Text("hey")
-                                .padding().padding().padding()
-                        }
-                        .background(
-                            RoundedRectangle(cornerRadius: 30, style: .continuous)
-                                .foregroundColor(.yellow)
-                        )
+                        NewRecordingView()
                     }
                 }
             }
@@ -61,9 +54,53 @@ struct ContentView: View {
     }
 }
 
-struct RecordingView: View {
+struct NewRecordingView: View {
+    @State var recording: Bool = false
+
+    var body: some View {
+        VStack {
+            Button(action: {
+                self.recording.toggle()
+                if self.recording {
+
+                } else {
+
+                }
+            }) {
+                VStack {
+                    if recording {
+                        RoundedRectangle(cornerRadius: 5)
+                            .frame(width: 150, height: 150)
+                            .padding()
+                        Text("Stop")
+                    } else {
+                        Circle()
+                            .frame(width: 150, height: 150)
+                            .padding()
+                        Text("Record")
+                    }
+                }
+                .foregroundColor(recording ? Color(.gray) : Color(.systemRed))
+                .padding()
+            }
+            HStack {
+                Text("Recording...")
+                    .opacity(recording ? 1 : 0)
+                    .padding()
+                Text("0:00")
+            }
+        }
+        .background(
+            RoundedRectangle(cornerRadius: 30, style: .continuous)
+                .foregroundColor(Color(.systemBackground))
+                .frame(width: 300, height: 300)
+        )
+    }
+}
+
+struct ExistingRecordingView: View {
     var title: String
-    
+
     var body: some View {
         Text(title)
     }
@@ -77,3 +114,5 @@ struct ContentView_Previews: PreviewProvider {
         )
     }
 }
+
+

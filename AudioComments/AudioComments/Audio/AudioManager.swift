@@ -13,6 +13,13 @@ class AudioManager: NSObject, ObservableObject {
 
     // MARK: - Properties
 
+    var isPlaying: Bool {
+        audioPlayer?.isPlaying ?? false
+    }
+    var isRecording: Bool {
+        audioRecorder?.isRecording ?? false
+    }
+
     var audioPlayer: AVAudioPlayer? {
         didSet {
             guard let audioPlayer = audioPlayer else { return }
@@ -22,11 +29,10 @@ class AudioManager: NSObject, ObservableObject {
             //updateViews()
         }
     }
+    var audioRecorder: AVAudioRecorder?
+    var recordingURL: URL?
 
     weak var timer: Timer?
-
-    var recordingURL: URL?
-    var audioRecorder: AVAudioRecorder?
 
     private lazy var timeIntervalFormatter: DateComponentsFormatter = {
         // NOTE: DateComponentFormatter is good for minutes/hours/seconds
@@ -88,10 +94,6 @@ class AudioManager: NSObject, ObservableObject {
 
     // MARK: - Playback
 
-    var isPlaying: Bool {
-        audioPlayer?.isPlaying ?? false
-    }
-
     func loadAudio() {
         let songURL = Bundle.main.url(forResource: "piano", withExtension: "mp3")!
 
@@ -127,10 +129,6 @@ class AudioManager: NSObject, ObservableObject {
 
 
     // MARK: - Recording
-
-    var isRecording: Bool {
-        audioRecorder?.isRecording ?? false
-    }
 
     func createNewRecordingURL() -> URL {
         let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!

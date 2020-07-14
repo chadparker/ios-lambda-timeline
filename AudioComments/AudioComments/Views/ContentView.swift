@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var dataSource: AudioDataSource
+    @EnvironmentObject var dataSource: AudioDataSource
     @State var showingNewModal: Bool = true
     
     var body: some View {
@@ -55,6 +55,7 @@ struct ContentView: View {
 }
 
 struct NewRecordingView: View {
+    @EnvironmentObject var dataSource: AudioDataSource
     @State var recording: Bool = false
 
     var body: some View {
@@ -62,9 +63,9 @@ struct NewRecordingView: View {
             Button(action: {
                 self.recording.toggle()
                 if self.recording {
-
+                    
                 } else {
-
+                    self.dataSource.createNewRecording()
                 }
             }) {
                 VStack {
@@ -108,10 +109,8 @@ struct ExistingRecordingView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(
-            dataSource:
-            AudioDataSource(withSampleData: true)
-        )
+        ContentView()
+            .environmentObject(AudioDataSource(withSampleData: true))
     }
 }
 

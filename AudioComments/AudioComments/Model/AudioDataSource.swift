@@ -20,4 +20,8 @@ class AudioDataSource: ObservableObject {
             ])
         }
     }
+
+    func createNewRecording() {
+        
+    }
 }

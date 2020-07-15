@@ -12,6 +12,7 @@ struct AudioComment: Identifiable {
     
     let id = UUID()
     let title: String
+    var url: URL = URL(string: "/")!
 
     static var empty: AudioComment {
         .init(title: "")

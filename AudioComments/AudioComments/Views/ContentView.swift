@@ -15,7 +15,7 @@ struct ContentView: View {
     @EnvironmentObject var dataSource: AudioDataSource
     @State var showRecordingModal = true
     @State var showPlayer = false
-    @State var currentAudioComment = AudioComment(title: "")
+    @State var currentAudioComment = AudioComment.empty
     
     var body: some View {
         NavigationView {

@@ -9,6 +9,11 @@
 import Foundation
 
 struct AudioComment: Identifiable {
+    
     let id = UUID()
     let title: String
+
+    static var empty: AudioComment {
+        .init(title: "")
+    }
 }

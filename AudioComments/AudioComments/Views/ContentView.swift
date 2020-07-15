@@ -11,6 +11,7 @@ import SwiftUI
 // MARK: - Audio Comments View
 
 struct ContentView: View {
+
     @EnvironmentObject var dataSource: AudioDataSource
     @State var showRecordingModal = true
     @State var showPlayer = false
@@ -57,7 +58,7 @@ struct ContentView: View {
                             .onTapGesture {
                                 self.showRecordingModal = false
                         }
-                        NewRecordingView()
+                        NewRecordingView(showing: $showRecordingModal)
                     }
                 }
             }
@@ -70,6 +71,7 @@ struct ContentView: View {
 // MARK: - Player View
 
 struct PlayerView: View {
+
     @Binding var audioComment: AudioComment
     @EnvironmentObject var audioPlayer: AudioPlayer
 
@@ -114,6 +116,8 @@ struct PlayerView: View {
 // MARK: - Recording View
 
 struct NewRecordingView: View {
+
+    @Binding var showing: Bool
     @EnvironmentObject var dataSource: AudioDataSource
     @EnvironmentObject var audioRecorder: AudioRecorder
 
@@ -125,6 +129,7 @@ struct NewRecordingView: View {
                     
                 } else {
                     self.dataSource.createNewRecording()
+                    self.showing = false
                 }
             }) {
                 VStack {
@@ -166,6 +171,7 @@ struct NewRecordingView: View {
 // MARK: - Preview
 
 struct ContentView_Previews: PreviewProvider {
+    
     static var previews: some View {
         ContentView()
             .environmentObject(AudioDataSource(withSampleData: true))

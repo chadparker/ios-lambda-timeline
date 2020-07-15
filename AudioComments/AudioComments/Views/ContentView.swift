@@ -126,9 +126,9 @@ struct NewRecordingView: View {
             Button(action: {
                 self.audioRecorder.toggleRecording()
                 if self.audioRecorder.isRecording {
-                    
+                    // let it record
                 } else {
-                    self.dataSource.createNewRecording()
+                    self.dataSource.newRecording(at: self.audioRecorder.recordingURL)
                     self.showing = false
                 }
             }) {

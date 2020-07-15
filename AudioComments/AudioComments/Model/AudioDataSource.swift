@@ -9,19 +9,25 @@
 import Foundation
 
 class AudioDataSource: ObservableObject {
+    
     @Published var audioComments = [AudioComment]()
     
     convenience init(withSampleData: Bool) {
         self.init()
+        
         if withSampleData {
-            audioComments.append(contentsOf: [
+            audioComments = [
                 AudioComment(title: "one"),
                 AudioComment(title: "two"),
-            ])
+            ]
         }
     }
 
-    func createNewRecording() {
-        
+    func newRecording(at url: URL?) {
+        guard let url = url else { return }
+
+        let title = ISO8601DateFormatter.string(from: Date(), timeZone: .current, formatOptions: .withInternetDateTime)
+        let newAudioComment = AudioComment(title: title, url: url)
+        audioComments.insert(newAudioComment, at: 0)
     }
 }

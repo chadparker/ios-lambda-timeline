@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		6359244524BBF44B008C93C0 /* AudioComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6359244424BBF44B008C93C0 /* AudioComment.swift */; };
 		6359244724BBF45E008C93C0 /* AudioDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6359244624BBF45E008C93C0 /* AudioDataSource.swift */; };
-		6394A33124BD2D6E004140A8 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6394A33024BD2D6E004140A8 /* AudioManager.swift */; };
 		6394A33424BD4042004140A8 /* piano.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6394A33324BD4042004140A8 /* piano.mp3 */; };
 		63B51A1524BE48B100687F19 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B51A1424BE48B100687F19 /* AudioPlayer.swift */; };
 		63CEB5E024BD6F65006874AA /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CEB5DF24BD6F65006874AA /* AudioRecorder.swift */; };
@@ -24,7 +23,6 @@
 /* Begin PBXFileReference section */
 		6359244424BBF44B008C93C0 /* AudioComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioComment.swift; sourceTree = "<group>"; };
 		6359244624BBF45E008C93C0 /* AudioDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDataSource.swift; sourceTree = "<group>"; };
-		6394A33024BD2D6E004140A8 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		6394A33324BD4042004140A8 /* piano.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = piano.mp3; sourceTree = "<group>"; };
 		63B51A1424BE48B100687F19 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		63CEB5DF24BD6F65006874AA /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
@@ -69,7 +67,6 @@
 		6394A33224BD2D7D004140A8 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				6394A33024BD2D6E004140A8 /* AudioManager.swift */,
 				63B51A1424BE48B100687F19 /* AudioPlayer.swift */,
 				63CEB5DF24BD6F65006874AA /* AudioRecorder.swift */,
 			);
@@ -189,7 +186,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6394A33124BD2D6E004140A8 /* AudioManager.swift in Sources */,
 				63CEB5E024BD6F65006874AA /* AudioRecorder.swift in Sources */,
 				63F29CD424BBEDDA00324B9D /* AppDelegate.swift in Sources */,
 				63B51A1524BE48B100687F19 /* AudioPlayer.swift in Sources */,

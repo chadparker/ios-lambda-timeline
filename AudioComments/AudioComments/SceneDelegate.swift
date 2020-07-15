@@ -22,6 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let contentView = ContentView()
             .environmentObject(AudioDataSource(withSampleData: true))
             .environmentObject(AudioPlayer())
+            .environmentObject(AudioRecorder())
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

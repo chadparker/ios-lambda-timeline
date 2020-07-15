@@ -12,8 +12,8 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var dataSource: AudioDataSource
-    @State var showRecordingModal = false
-    @State var showPlayer = true
+    @State var showRecordingModal = true
+    @State var showPlayer = false
     @State var currentAudioComment = AudioComment(title: "")
     
     var body: some View {
@@ -115,45 +115,49 @@ struct PlayerView: View {
 
 struct NewRecordingView: View {
     @EnvironmentObject var dataSource: AudioDataSource
-    @State var recording: Bool = false
+    @EnvironmentObject var audioRecorder: AudioRecorder
 
     var body: some View {
         VStack {
             Button(action: {
-                self.recording.toggle()
-                if self.recording {
+                self.audioRecorder.toggleRecording()
+                if self.audioRecorder.isRecording {
                     
                 } else {
                     self.dataSource.createNewRecording()
                 }
             }) {
                 VStack {
-                    if recording {
+                    if audioRecorder.isRecording {
                         RoundedRectangle(cornerRadius: 5)
-                            .frame(width: 150, height: 150)
-                            .padding()
+                            .frame(width: 110, height: 110)
+                            .padding(.top)
+                            .padding(20)
                         Text("Stop")
                     } else {
                         Circle()
                             .frame(width: 150, height: 150)
-                            .padding()
+                            .padding(.top)
                         Text("Record")
                     }
                 }
-                .foregroundColor(recording ? Color(.gray) : Color(.systemRed))
-                .padding()
+                .foregroundColor(audioRecorder.isRecording ? Color(.label) : Color(.systemRed))
             }
+            .padding(.all, 40)
             HStack {
                 Text("Recording...")
-                    .opacity(recording ? 1 : 0)
                     .padding()
-                Text("0:00")
+                Spacer()
+                Text(audioRecorder.elapsedTimeString)
+                    .padding()
             }
+            .opacity(audioRecorder.isRecording ? 1 : 0)
+            .frame(width: 250)
         }
         .background(
             RoundedRectangle(cornerRadius: 30, style: .continuous)
                 .foregroundColor(Color(.systemBackground))
-                .frame(width: 300, height: 300)
+                .frame(width: 300, height: 400)
         )
     }
 }
@@ -166,6 +170,7 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
             .environmentObject(AudioDataSource(withSampleData: true))
             .environmentObject(AudioPlayer())
+            .environmentObject(AudioRecorder())
     }
 }
 

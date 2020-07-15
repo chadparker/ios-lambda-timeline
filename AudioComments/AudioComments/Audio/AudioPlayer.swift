@@ -18,7 +18,7 @@ class AudioPlayer: NSObject, ObservableObject {
     @Published var elapsedTimeString = ""
     @Published var remainingTimeString = ""
     
-    var audioPlayer: AVAudioPlayer? {
+    private var audioPlayer: AVAudioPlayer? {
         didSet {
             guard let audioPlayer = audioPlayer else { return }
             
@@ -26,7 +26,7 @@ class AudioPlayer: NSObject, ObservableObject {
             updateProperties()
         }
     }
-    weak var timer: Timer?
+    private weak var timer: Timer?
     
     private lazy var timeIntervalFormatter: DateComponentsFormatter = {
         // NOTE: DateComponentFormatter is good for minutes/hours/seconds
@@ -56,7 +56,7 @@ class AudioPlayer: NSObject, ObservableObject {
     }
 
     
-    // MARK: - View Lifecycle
+    // MARK: - Lifecycle
     
     override init() {
         super.init()
@@ -81,15 +81,12 @@ class AudioPlayer: NSObject, ObservableObject {
         }
     }
     
-    private func prepareAudioSession() throws {
-        let session = AVAudioSession.sharedInstance()
-        try session.setCategory(.playAndRecord, options: [.defaultToSpeaker])
-        try session.setActive(true, options: []) // can fail if on a phone call, for instance
-    }
-    
     func play() {
         do {
-            try prepareAudioSession()
+            let session = AVAudioSession.sharedInstance()
+            try session.setCategory(.playback, options: [.defaultToSpeaker])
+            try session.setActive(true, options: []) // can fail if on a phone call, for instance
+
             audioPlayer?.play()
             updateProperties()
             startTimer()
@@ -115,7 +112,7 @@ class AudioPlayer: NSObject, ObservableObject {
 
     // MARK: - Timer
 
-    func startTimer() {
+    private func startTimer() {
         timer?.invalidate()
 
         timer = Timer.scheduledTimer(withTimeInterval: 0.030, repeats: true) { [weak self] (_) in
@@ -132,13 +129,14 @@ class AudioPlayer: NSObject, ObservableObject {
         }
     }
 
-    func cancelTimer() {
+    private func cancelTimer() {
         timer?.invalidate()
         timer = nil
     }
 }
 
-// MARK: - Delegates
+
+// MARK: - Delegate
 
 extension AudioPlayer: AVAudioPlayerDelegate {
     

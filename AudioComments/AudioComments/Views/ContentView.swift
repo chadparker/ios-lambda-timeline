@@ -81,6 +81,9 @@ struct PlayerView: View {
                     .foregroundColor(Color(.secondarySystemBackground))
                     .padding(.top, 30)
                 HStack {
+                    Text(audioPlayer.elapsedTimeString)
+                        .font(.callout)
+                        .padding()
                     Spacer()
                     Button(action: {
                         self.audioPlayer.togglePlayback()
@@ -91,7 +94,11 @@ struct PlayerView: View {
                             .padding()
                     }
                     Spacer()
+                    Text(audioPlayer.remainingTimeString)
+                    .font(.callout)
+                    .padding()
                 }
+                .foregroundColor(Color(.systemGray))
                 .padding(.top)
             }
             .background(

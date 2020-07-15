@@ -26,6 +26,7 @@ class AudioPlayer: NSObject, ObservableObject {
             updateProperties()
         }
     }
+    weak var timer: Timer?
     
     private lazy var timeIntervalFormatter: DateComponentsFormatter = {
         // NOTE: DateComponentFormatter is good for minutes/hours/seconds
@@ -64,7 +65,7 @@ class AudioPlayer: NSObject, ObservableObject {
     }
     
     deinit {
-        //timer?.invalidate()
+        timer?.invalidate()
     }
     
     
@@ -91,7 +92,7 @@ class AudioPlayer: NSObject, ObservableObject {
             try prepareAudioSession()
             audioPlayer?.play()
             updateProperties()
-            //startTimer()
+            startTimer()
         } catch {
             print("Cannot play audio: \(error)")
         }
@@ -100,7 +101,7 @@ class AudioPlayer: NSObject, ObservableObject {
     func pause() {
         audioPlayer?.pause()
         updateProperties()
-        //cancelTimer()
+        cancelTimer()
     }
 
     func togglePlayback() {
@@ -110,8 +111,32 @@ class AudioPlayer: NSObject, ObservableObject {
             play()
         }
     }
-}
 
+
+    // MARK: - Timer
+
+    func startTimer() {
+        timer?.invalidate()
+
+        timer = Timer.scheduledTimer(withTimeInterval: 0.030, repeats: true) { [weak self] (_) in
+            guard let self = self else { return }
+
+            self.updateProperties()
+
+//            if let audioPlayer = self.audioPlayer,
+//                self.isPlaying == true {
+//
+//                audioPlayer.updateMeters()
+//                self.audioVisualizer.addValue(decibelValue: audioPlayer.averagePower(forChannel: 0))
+//            }
+        }
+    }
+
+    func cancelTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+}
 
 // MARK: - Delegates
 
@@ -119,7 +144,7 @@ extension AudioPlayer: AVAudioPlayerDelegate {
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         updateProperties()
-        //cancelTimer()
+        cancelTimer()
     }
     
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {

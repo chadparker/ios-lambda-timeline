@@ -35,6 +35,8 @@ struct ContentView: View {
                             Button(action: {
                                 self.showPlayer = true
                                 self.currentAudioComment = audioComment
+                                self.audioPlayer.loadAudio(url: audioComment.url)
+                                self.audioPlayer.play()
                             }) {
                                 Text(audioComment.title)
                             }

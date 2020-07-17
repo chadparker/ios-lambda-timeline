@@ -71,11 +71,14 @@ class AudioPlayer: NSObject, ObservableObject {
     
     // MARK: - Playback
     
-    private func loadAudio() {
-        let songURL = Bundle.main.url(forResource: "piano", withExtension: "mp3")!
+    func loadAudio(url: URL? = Bundle.main.url(forResource: "piano", withExtension: "mp3")) {
+        guard let url = url else {
+            print("URL was nil")
+            return
+        }
         
         do {
-            audioPlayer = try AVAudioPlayer(contentsOf: songURL)
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
         } catch {
             preconditionFailure("Failure to load audio file: \(error)")
         }

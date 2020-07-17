@@ -12,7 +12,7 @@ struct AudioComment: Identifiable {
     
     let id = UUID()
     let title: String
-    var url: URL = URL(string: "/")!
+    var url: URL = Bundle.main.url(forResource: "piano", withExtension: "mp3")!
 
     static var empty: AudioComment {
         .init(title: "")

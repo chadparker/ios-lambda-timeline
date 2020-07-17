@@ -13,9 +13,10 @@ import SwiftUI
 struct ContentView: View {
 
     @EnvironmentObject var dataSource: AudioDataSource
-    @State var showRecordingModal = true
+    @EnvironmentObject var audioPlayer: AudioPlayer
+    @State var showRecordingModal = false
     @State var showPlayer = false
-    @State var currentAudioComment = AudioComment.empty
+    @State var showRename = false
     
     var body: some View {
         NavigationView {
@@ -34,7 +35,7 @@ struct ContentView: View {
                         ForEach(dataSource.audioComments) { audioComment in
                             Button(action: {
                                 self.showPlayer = true
-                                self.currentAudioComment = audioComment
+                                self.dataSource.currentAudioComment = audioComment
                                 self.audioPlayer.loadAudio(url: audioComment.url)
                                 self.audioPlayer.play()
                             }) {
@@ -51,7 +52,7 @@ struct ContentView: View {
                     }
                 }
                 if showPlayer {
-                    PlayerView(audioComment: $currentAudioComment)
+                    PlayerView(showRename: $showRename)
                 }
                 if showRecordingModal {
                     ZStack {
@@ -61,6 +62,16 @@ struct ContentView: View {
                                 self.showRecordingModal = false
                         }
                         NewRecordingView(showing: $showRecordingModal)
+                    }
+                }
+                if showRename {
+                    ZStack {
+                        Color.black.opacity(0.6)
+                            .edgesIgnoringSafeArea(.all)
+                            .onTapGesture {
+                                self.showRename = false
+                        }
+                        RenameView()
                     }
                 }
             }
@@ -74,16 +85,22 @@ struct ContentView: View {
 
 struct PlayerView: View {
 
-    @Binding var audioComment: AudioComment
+    @Binding var showRename: Bool
+    @EnvironmentObject var dataSource: AudioDataSource
     @EnvironmentObject var audioPlayer: AudioPlayer
 
     var body: some View {
         VStack {
             Spacer()
             VStack {
-                Text(audioComment.title)
+                Button(action: {
+                    self.showRename = true
+                }) {
+                    Text(dataSource.currentAudioComment.title)
                     .foregroundColor(Color(.secondarySystemBackground))
                     .padding(.top, 30)
+                }
+
                 HStack {
                     Text(audioPlayer.elapsedTimeString)
                         .font(.callout)
@@ -115,6 +132,36 @@ struct PlayerView: View {
 }
 
 
+// MARK: - Rename View
+
+struct RenameView: View {
+
+    @EnvironmentObject var dataSource: AudioDataSource
+
+    var body: some View {
+        VStack {
+            Spacer()
+                .frame(height: 150)
+            VStack {
+                Text("Rename:")
+                TextField("New recording name", text: $dataSource.currentAudioComment.title)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .onAppear {
+                        UITextField.appearance().clearButtonMode = .whileEditing
+                }
+            }
+            .frame(width: 250)
+            .background(
+                RoundedRectangle(cornerRadius: 30, style: .continuous)
+                    .foregroundColor(Color(.systemBackground))
+                    .frame(width: 300, height: 200)
+            )
+            Spacer()
+        }
+    }
+}
+
+
 // MARK: - Recording View
 
 struct NewRecordingView: View {
@@ -130,6 +177,7 @@ struct NewRecordingView: View {
                 if self.audioRecorder.isRecording {
                     // let it record
                 } else {
+                    // TODO: rename to createNew(with: )
                     self.dataSource.newRecording(at: self.audioRecorder.recordingURL)
                     self.showing = false
                 }

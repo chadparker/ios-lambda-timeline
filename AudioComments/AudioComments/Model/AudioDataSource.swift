@@ -11,6 +11,15 @@ import Foundation
 class AudioDataSource: ObservableObject {
     
     @Published var audioComments = [AudioComment]()
+    @Published var currentAudioComment = AudioComment.empty {
+        didSet {
+            // renaming
+            if oldValue.id == currentAudioComment.id {
+                guard let index = audioComments.firstIndex(where: { $0.id == currentAudioComment.id }) else { return }
+                audioComments[index] = currentAudioComment
+            }
+        }
+    }
     
     convenience init(withSampleData: Bool) {
         self.init()

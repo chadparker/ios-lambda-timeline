@@ -11,7 +11,7 @@ import Foundation
 struct AudioComment: Identifiable {
     
     let id = UUID()
-    let title: String
+    var title: String
     var url: URL = Bundle.main.url(forResource: "piano", withExtension: "mp3")!
 
     static var empty: AudioComment {

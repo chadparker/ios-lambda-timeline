@@ -15,6 +15,7 @@
 		63EC23DF24C13CEC00309332 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63EC23DD24C13CEC00309332 /* LaunchScreen.storyboard */; };
 		63EC23E824C1417F00309332 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EC23E724C1417F00309332 /* CameraPreviewView.swift */; };
 		63EC23EA24C141CD00309332 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EC23E924C141CD00309332 /* VideoPlayerView.swift */; };
+		63EC23ED24C1434300309332 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EC23EC24C1434300309332 /* CameraViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		63EC23E024C13CEC00309332 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63EC23E724C1417F00309332 /* CameraPreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
 		63EC23E924C141CD00309332 /* VideoPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		63EC23EC24C1434300309332 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,8 +64,8 @@
 			children = (
 				63EC23D224C13CEB00309332 /* AppDelegate.swift */,
 				63EC23D424C13CEB00309332 /* SceneDelegate.swift */,
-				63EC23E624C1417200309332 /* Video */,
-				63EC23D624C13CEB00309332 /* ViewController.swift */,
+				63EC23E624C1417200309332 /* Video Views */,
+				63EC23EB24C1433300309332 /* View Controllers */,
 				63EC23D824C13CEB00309332 /* Main.storyboard */,
 				63EC23DB24C13CEC00309332 /* Assets.xcassets */,
 				63EC23DD24C13CEC00309332 /* LaunchScreen.storyboard */,
@@ -72,13 +74,22 @@
 			path = VideoPostPrototype;
 			sourceTree = "<group>";
 		};
-		63EC23E624C1417200309332 /* Video */ = {
+		63EC23E624C1417200309332 /* Video Views */ = {
 			isa = PBXGroup;
 			children = (
 				63EC23E724C1417F00309332 /* CameraPreviewView.swift */,
 				63EC23E924C141CD00309332 /* VideoPlayerView.swift */,
 			);
-			path = Video;
+			path = "Video Views";
+			sourceTree = "<group>";
+		};
+		63EC23EB24C1433300309332 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				63EC23D624C13CEB00309332 /* ViewController.swift */,
+				63EC23EC24C1434300309332 /* CameraViewController.swift */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +168,7 @@
 				63EC23D324C13CEB00309332 /* AppDelegate.swift in Sources */,
 				63EC23D524C13CEB00309332 /* SceneDelegate.swift in Sources */,
 				63EC23EA24C141CD00309332 /* VideoPlayerView.swift in Sources */,
+				63EC23ED24C1434300309332 /* CameraViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

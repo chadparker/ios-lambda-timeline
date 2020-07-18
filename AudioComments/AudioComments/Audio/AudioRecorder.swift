@@ -13,8 +13,8 @@ class AudioRecorder: NSObject, ObservableObject {
      
     // MARK: - Properties
 
-    @Published var isRecording = false
-    @Published var elapsedTimeString = ""
+    @Published private(set) var isRecording = false
+    @Published private(set) var elapsedTimeString = ""
     
     var recordingURL: URL?
     var audioRecorder: AVAudioRecorder?

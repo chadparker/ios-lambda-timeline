@@ -14,9 +14,9 @@ class AudioPlayer: NSObject, ObservableObject {
     
     // MARK: - Properties
     
-    @Published var isPlaying = false
-    @Published var elapsedTimeString = ""
-    @Published var remainingTimeString = ""
+    @Published private(set) var isPlaying = false
+    @Published private(set) var elapsedTimeString = ""
+    @Published private(set) var remainingTimeString = ""
     
     private var audioPlayer: AVAudioPlayer? {
         didSet {

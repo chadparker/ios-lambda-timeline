@@ -10,7 +10,7 @@ import Foundation
 
 class AudioDataSource: ObservableObject {
     
-    @Published var audioComments = [AudioComment]()
+    @Published private(set) var audioComments = [AudioComment]()
     @Published var currentAudioComment = AudioComment.empty {
         didSet {
             // renaming
@@ -38,5 +38,10 @@ class AudioDataSource: ObservableObject {
         let title = ISO8601DateFormatter.string(from: Date(), timeZone: .current, formatOptions: .withInternetDateTime)
         let newAudioComment = AudioComment(title: title, url: url)
         audioComments.insert(newAudioComment, at: 0)
+    }
+    
+    func delete(at offsets: IndexSet) {
+        audioComments.remove(atOffsets: offsets)
+        // TODO: delete audio file as well
     }
 }

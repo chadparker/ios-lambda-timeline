@@ -42,6 +42,7 @@ struct ContentView: View {
                                 Text(audioComment.title)
                             }
                         }
+                        .onDelete(perform: dataSource.delete)
                         HStack {
                             Spacer()
                             Text("\(dataSource.audioComments.count) audio comments")

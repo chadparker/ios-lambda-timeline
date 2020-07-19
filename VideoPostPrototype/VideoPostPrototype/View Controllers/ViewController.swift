@@ -13,13 +13,12 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        requestVideoPermission()
+        requestPermissionAndShowCamera()
     }
 
     private func requestPermissionAndShowCamera() {
@@ -27,9 +26,9 @@ class ViewController: UIViewController {
         case .notDetermined:
             requestVideoPermission()
         case .restricted:
-            preconditionFailure("Video is disabled. Please review device restrictions.")
+            preconditionFailure("UI: Video is disabled. Please review device restrictions.")
         case .denied:
-            preconditionFailure("Tell user to change settings > privacy > video.")
+            preconditionFailure("UI: Tell user to change settings > privacy > video.")
         case .authorized:
             showCamera()
         @unknown default:
